@@ -70,6 +70,7 @@ public class SprintView extends VerticalLayout implements View {
 			public void buttonClick(ClickEvent event) {
 				grid.getSelectedItems().forEach((Task t) -> sp.removeTask(t));
 				grid.setItems(sp.getTasks());
+				
 			}
 		});
 
