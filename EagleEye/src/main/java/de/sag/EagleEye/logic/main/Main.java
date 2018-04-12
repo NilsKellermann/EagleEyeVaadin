@@ -14,7 +14,7 @@ public class Main {
 		Sprint testSprint = new Sprint();
 		Task test1Task = new Task(1.5);
 		Task test2Task = new Task(3.5);
-		Employee testEmployee = new Developer();
+		Employee testEmployee = new Developer("Peter Moped");
 
 		test1Task.setEmployee(testEmployee);
 		testSprint.addTask(test1Task);

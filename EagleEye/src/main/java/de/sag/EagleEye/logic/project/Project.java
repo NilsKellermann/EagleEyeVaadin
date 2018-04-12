@@ -4,11 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.sag.EagleEye.logic.stateProject.ProjectState;
+
 public class Project {
 
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
+
+	private ProjectState projectState;
 
 	List<Sprint> sprints;
 
@@ -23,7 +27,7 @@ public class Project {
 	public void addSprint(Sprint s) {
 		sprints.add(s);
 	}
-	
+
 	public List<Sprint> getSprints() {
 		return sprints;
 	}
@@ -75,6 +79,14 @@ public class Project {
 	 */
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+
+	public void setProjectState(ProjectState projectState) {
+		this.projectState = projectState;
+	}
+
+	public ProjectState getProjectState() {
+		return projectState;
 	}
 
 }

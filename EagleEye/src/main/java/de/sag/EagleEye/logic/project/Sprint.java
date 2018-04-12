@@ -3,24 +3,20 @@ package de.sag.EagleEye.logic.project;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.sag.EagleEye.logic.state.State;
-import de.sag.EagleEye.logic.state.StateActive;
-import de.sag.EagleEye.logic.visitor.ProjectVisitor;
+import de.sag.EagleEye.logic.visitor.TaskVisitor;
 
 public class Sprint {
 
-	private ProjectVisitor pv;
+	private TaskVisitor pv;
 
-	private State ps;
 
 	private int number;
 	private int days;
 	private List<Task> tasks;
 
 	public Sprint() {
-		this.pv = new ProjectVisitor();
+		this.pv = new TaskVisitor();
 		this.setTasks(new ArrayList<Task>());
-		setProjectState(new StateActive());
 	}
 
 	/**
@@ -48,7 +44,7 @@ public class Sprint {
 	public double getWorkload() {
 		double summe = 0.0;
 		for (Task t : tasks) {
-			summe += pv.visit(t);
+			summe += pv.visitWorkload(t);
 		}
 		return summe;
 
@@ -97,19 +93,6 @@ public class Sprint {
 		this.tasks = tasks;
 	}
 
-	/**
-	 * @return the ps
-	 */
-	public State getProjectState() {
-		return ps;
-	}
 
-	/**
-	 * @param ps
-	 *            the ps to set
-	 */
-	public void setProjectState(State ps) {
-		this.ps = ps;
-	}
 
 }

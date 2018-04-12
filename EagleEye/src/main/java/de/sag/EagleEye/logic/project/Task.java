@@ -1,27 +1,35 @@
 package de.sag.EagleEye.logic.project;
 
 import de.sag.EagleEye.logic.employee.Employee;
-import de.sag.EagleEye.logic.visitor.ProjectVisitor;
+import de.sag.EagleEye.logic.stateTask.TaskState;
+import de.sag.EagleEye.logic.stateTask.TaskStateBacklog;
+import de.sag.EagleEye.logic.visitor.TaskVisitor;
 
 public class Task {
 
 	private double workload;
 	private Employee emp;
 	private String description;
+	private TaskState taskState;
 
 	public Task() {
-		this.workload = 0.0;
+		this(0.0);
 	}
 
 	public Task(double workload, Employee emp, String description) {
 		this.setWorkload(workload);
 		this.setEmployee(emp);
 		this.setDescription(description);
+		setTaskState(new TaskStateBacklog());
 	}
 
 	public Task(double workload, Employee emp) {
 		this(workload, emp, "no description");
 
+	}
+
+	public Task(double workload) {
+		this(workload, null);
 	}
 
 	/**
@@ -54,8 +62,8 @@ public class Task {
 		this.emp = emp;
 	}
 
-	public void accept(ProjectVisitor pv) {
-		pv.visit(this);
+	public void accept(TaskVisitor pv) {
+		pv.visitWorkload(this);
 	}
 
 	/**
@@ -71,6 +79,21 @@ public class Task {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the taskState
+	 */
+	public TaskState getTaskState() {
+		return taskState;
+	}
+
+	/**
+	 * @param taskState
+	 *            the taskState to set
+	 */
+	public void setTaskState(TaskState taskState) {
+		this.taskState = taskState;
 	}
 
 }

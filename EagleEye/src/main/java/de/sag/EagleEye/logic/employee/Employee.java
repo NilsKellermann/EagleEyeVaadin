@@ -1,6 +1,6 @@
 package de.sag.EagleEye.logic.employee;
 
-public class Employee {
+public abstract class Employee {
 
 	double hourlyWage;
 	String name;

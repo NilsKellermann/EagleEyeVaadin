@@ -12,9 +12,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.sag.EagleEye.logic.employee.Developer;
 import de.sag.EagleEye.logic.employee.Employee;
 import de.sag.EagleEye.logic.project.Sprint;
 import de.sag.EagleEye.logic.project.Task;
+import de.sag.EagleEye.logic.stateTask.TaskStateBacklog;
 
 public class SprintView extends VerticalLayout implements View {
 	protected static final String NAME = "Sprint";
@@ -22,10 +24,18 @@ public class SprintView extends VerticalLayout implements View {
 	public SprintView() {
 		// Testhalber wird hier der Sprint erzeugt
 		Sprint sp = new Sprint();
-		Employee emp = new Employee("Harald Mustermann");
+		Employee emp = new Developer("Harald Mustermann");
 
-		Grid<Task> grid = new Grid<>();
-		String gridID = grid.getId();
+		Grid<Task> grid = new Grid<Task>();
+
+		// Grid<Task> gridKanban = new Grid<Task>();
+
+		Grid<Task> gridKanbanBacklog = new Grid<Task>();
+		Grid<Task> gridKanbanDocumentation = new Grid<Task>();
+		Grid<Task> gridKanbanDone = new Grid<Task>();
+		Grid<Task> gridKanbanInProgress = new Grid<Task>();
+		Grid<Task> gridKanbanTest = new Grid<Task>();
+		Grid<Task> gridKanbanObstacle = new Grid<Task>();
 
 		setSizeFull();
 
@@ -37,28 +47,51 @@ public class SprintView extends VerticalLayout implements View {
 			}
 		});
 
-		addComponent(buttonProject);
-
 		TextField workloadField = new TextField("Enter workload here ...");
+		TextField descriptionField = new TextField("Enter description here ...");
 		Button buttonAddTask = new Button("Add Task");
 		buttonAddTask.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				sp.addTask(new Task(Double.parseDouble(workloadField.getValue()), emp));
+				sp.addTask(new Task(Double.parseDouble(workloadField.getValue()), emp, descriptionField.getValue()));
+
+				gridKanbanBacklog.setItems(
+						sp.getTasks().stream().filter((Task t) -> t.getTaskState() instanceof TaskStateBacklog));
+
 				grid.setItems(sp.getTasks());
 				// Gui.getCurrent().
 
 			}
 		});
 
-		grid.addColumn(Task::getDescription).setCaption("Description");
-		grid.addColumn(Task::getWorkload).setCaption("Workload");
-		grid.addColumn(Task::getEmployee).setCaption("Employee");
+		Button buttonRemoveSelected = new Button("Remove Task");
+		buttonRemoveSelected.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				grid.getSelectedItems().forEach((Task t) -> sp.removeTask(t));
+				grid.setItems(sp.getTasks());
+			}
+		});
 
-		HorizontalLayout hl = new HorizontalLayout(workloadField, buttonAddTask);
+		gridKanbanBacklog.addColumn(t -> t.getTaskState().toString()).setCaption("BACKLOG");
+		gridKanbanInProgress.addColumn(t -> t.getTaskState().toString()).setCaption("IN PROGRESS");
+		gridKanbanTest.addColumn(t -> t.getTaskState().toString()).setCaption("TEST");
+		gridKanbanDocumentation.addColumn(t -> t.getTaskState().toString()).setCaption("DOCUMENTATION");
+		gridKanbanDone.addColumn(t -> t.getTaskState().toString()).setCaption("DONE");
+		gridKanbanObstacle.addColumn(t -> t.getTaskState().toString()).setCaption("OBSTACLE");
+
+		HorizontalLayout hl = new HorizontalLayout(workloadField, descriptionField, buttonAddTask,
+				buttonRemoveSelected);
+
+		HorizontalLayout hlGrid = new HorizontalLayout(gridKanbanBacklog, gridKanbanInProgress, gridKanbanTest,
+				gridKanbanDocumentation, gridKanbanDone, gridKanbanObstacle);
+		hlGrid.setWidth("90%");
+
+		addComponent(buttonProject);
 
 		addComponent(buttonProject);
 		addComponent(hl);
+		addComponent(hlGrid);
 		addComponent(grid);
 
 		setComponentAlignment(buttonProject, Alignment.TOP_LEFT);

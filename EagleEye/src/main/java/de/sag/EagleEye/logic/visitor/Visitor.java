@@ -4,6 +4,6 @@ import de.sag.EagleEye.logic.project.Task;
 
 public interface Visitor {
 
-	public double visit(Task t);
+	public double visitWorkload(Task t);
 
 }
