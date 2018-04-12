@@ -16,10 +16,10 @@ public class Main {
 		Task test2Task = new Task(3.5);
 		Employee testEmployee = new Developer();
 
-		test1Task.setEmp(testEmployee);
+		test1Task.setEmployee(testEmployee);
 		testSprint.addTask(test1Task);
 		
-		test2Task.setEmp(testEmployee);
+		test2Task.setEmployee(testEmployee);
 		testSprint.addTask(test2Task);
 		
 		

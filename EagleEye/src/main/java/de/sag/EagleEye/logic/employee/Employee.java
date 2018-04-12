@@ -1,19 +1,18 @@
 package de.sag.EagleEye.logic.employee;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.sag.EagleEye.logic.project.Task;
-
 public class Employee {
 
-	List<Task> tasks;
-
 	double hourlyWage;
+	String name;
 
-	public Employee() {
-		this.tasks = new ArrayList<Task>();
-		hourlyWage = 8.50;
+	public Employee(String name, double hourlyWage) {
+		this.name = name;
+		this.hourlyWage = hourlyWage;
+	}
+
+	public Employee(String name) {
+		this(name, 8.50);
+		this.name = name;
 	}
 
 	public void setHourlyWage(double hourlyWage) {
@@ -22,6 +21,11 @@ public class Employee {
 
 	public double getHourlyWage() {
 		return hourlyWage;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }

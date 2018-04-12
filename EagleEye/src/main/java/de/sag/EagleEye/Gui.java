@@ -30,11 +30,11 @@ public class Gui extends UI {
 		navigator = new Navigator(this, this);
 
 		// Create and register the views
-		navigator.addView("", Home.class);
-		navigator.addView(Home.NAME, Home.class);
-		navigator.addView(Project.NAME, Project.class);
-		navigator.addView(Sprint.NAME, Sprint.class);
-		navigator.addView(Office.NAME, Office.class);
+		navigator.addView("", HomeView.class);
+		navigator.addView(HomeView.NAME, HomeView.class);
+		navigator.addView(ProjectView.NAME, ProjectView.class);
+		navigator.addView(SprintView.NAME, SprintView.class);
+		navigator.addView(OfficeView.NAME, OfficeView.class);
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "GUIServlet", asyncSupported = true)

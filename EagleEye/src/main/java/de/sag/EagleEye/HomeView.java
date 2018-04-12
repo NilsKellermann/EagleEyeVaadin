@@ -22,17 +22,17 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
-public class Home extends VerticalLayout implements View {
+public class HomeView extends VerticalLayout implements View {
 	protected static final String NAME = "Home";
 
-	public Home() {
+	public HomeView() {
 
 		Button buttonSignout = new Button("Sign out", VaadinIcons.SIGN_OUT);
 		Button buttonOffice = new Button("Office", VaadinIcons.USERS);
 		buttonOffice.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Gui.getCurrent().getNavigator().navigateTo(Office.NAME);
+				Gui.getCurrent().getNavigator().navigateTo(OfficeView.NAME);
 			}
 		});
 
@@ -43,7 +43,7 @@ public class Home extends VerticalLayout implements View {
 		imageProjectSap.addClickListener(new MouseEvents.ClickListener() {
 			@Override
 			public void click(MouseEvents.ClickEvent event) {
-				Gui.getCurrent().getNavigator().navigateTo(Project.NAME);
+				Gui.getCurrent().getNavigator().navigateTo(ProjectView.NAME);
 			}
 		});
 		imageProjectSap.setWidth(75, Unit.PERCENTAGE);

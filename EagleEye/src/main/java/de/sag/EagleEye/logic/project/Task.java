@@ -7,22 +7,21 @@ public class Task {
 
 	private double workload;
 	private Employee emp;
+	private String description;
 
 	public Task() {
 		this.workload = 0.0;
 	}
 
-	public Task(double workload, Employee emp) {
+	public Task(double workload, Employee emp, String description) {
 		this.setWorkload(workload);
-		this.setEmp(emp);
+		this.setEmployee(emp);
+		this.setDescription(description);
 	}
 
-	public Task(double workload) {
-		this(workload, new Employee());
-	}
+	public Task(double workload, Employee emp) {
+		this(workload, emp, "no description");
 
-	public Task(Employee emp) {
-		this(0.0, emp);
 	}
 
 	/**
@@ -43,7 +42,7 @@ public class Task {
 	/**
 	 * @return the emp
 	 */
-	public Employee getEmp() {
+	public Employee getEmployee() {
 		return emp;
 	}
 
@@ -51,12 +50,27 @@ public class Task {
 	 * @param emp
 	 *            the emp to set
 	 */
-	public void setEmp(Employee emp) {
+	public void setEmployee(Employee emp) {
 		this.emp = emp;
 	}
 
 	public void accept(ProjectVisitor pv) {
 		pv.visit(this);
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -16,10 +16,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 
-public class Project extends VerticalLayout implements View {
+public class ProjectView extends VerticalLayout implements View {
 	protected static final String NAME = "Project";
 
-	public Project() {
+	public ProjectView() {
 		// setSizeFull();
 
 		// Button buttonSprints = new Button("Sprints", new Button.ClickListener() {
@@ -32,7 +32,7 @@ public class Project extends VerticalLayout implements View {
 		buttonHome.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Gui.getCurrent().getNavigator().navigateTo(Home.NAME);
+				Gui.getCurrent().getNavigator().navigateTo(HomeView.NAME);
 			}
 		});
 
@@ -42,7 +42,7 @@ public class Project extends VerticalLayout implements View {
 		imageScrum.addClickListener(new MouseEvents.ClickListener() {
 			@Override
 			public void click(MouseEvents.ClickEvent event) {
-				Gui.getCurrent().getNavigator().navigateTo(Sprint.NAME);
+				Gui.getCurrent().getNavigator().navigateTo(SprintView.NAME);
 			}
 		});
 		imageScrum.setWidth(75, Unit.PERCENTAGE);
